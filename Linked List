@@ -1,0 +1,102 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+   int data;
+   struct Node* next;
+};
+
+Node* deletingFirstNode(Node* head) {
+   if (head == NULL)
+      return NULL;
+   Node* tempNode = head;
+   head = head->next;
+   delete tempNode;
+
+   return head;
+}
+
+Node* removingLastNode(Node* head) {
+   if (head == NULL)
+      return NULL;
+
+   if (head->next == NULL) {
+      delete head;
+      return NULL;
+   }
+
+   Node* secondLast = head;
+   while (secondLast->next->next != NULL)
+      secondLast = secondLast->next;
+   delete (secondLast->next);
+   secondLast->next = NULL;
+
+   return head;
+}
+
+void push(Node** head, int newData) {
+   struct Node* newNode1 = new Node;
+   newNode1->data = newData;
+   newNode1->next = (*head);
+   (*head) = newNode1;
+}
+
+void insertNode(Node** head, int newData) {
+   push(head, newData);
+   cout << "Node with data " << newData << " inserted at the beginning." << endl;
+}
+
+void deleteFirstNode(Node** head) {
+   *head = deletingFirstNode(*head);
+   cout << "Deleted the first node." << endl;
+}
+
+void deleteLastNode(Node** head) {
+   *head = removingLastNode(*head);
+   cout << "Deleted the last node." << endl;
+}
+
+int main() {
+   Node* head = NULL;
+   int choice, newData;
+
+   do {
+      cout << "\n1. Insert Node\n";
+      cout << "2. Delete First Node\n";
+      cout << "3. Delete Last Node\n";
+      cout << "4. Display Linked List\n";
+      cout << "0. Exit\n";
+      cout << "Enter your choice: ";
+      cin >> choice;
+
+      switch (choice) {
+         case 1:
+            cout << "Enter data for the new node: ";
+            cin >> newData;
+            insertNode(&head, newData);
+            break;
+         case 2:
+            deleteFirstNode(&head);
+            break;
+         case 3:
+            deleteLastNode(&head);
+            break;
+         case 4:
+            Node* temp;
+            cout << "Linked list: ";
+            for (temp = head; temp != NULL; temp = temp->next)
+               cout << temp->data << "-->";
+            if (temp == NULL)
+               cout << "NULL";
+            cout << endl;
+            break;
+         case 0:
+            cout << "Exiting the program." << endl;
+            break;
+         default:
+            cout << "Invalid choice. Please try again." << endl;
+      }
+   } while (choice != 0);
+
+   return 0;
+}
