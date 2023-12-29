@@ -1,0 +1,74 @@
+#include<iostream>
+using namespace std;
+void Push();
+void Display();
+void Pop();
+int stack[10],top =-1,n =3,option;
+void Menu()
+{
+    cout<<"\n\n=============Enter Option============\n";
+    cout<<"1. Push\n";
+    cout<<"2. Pop\n";
+    cout<<"3. Display\n";
+    cout<<"0. Exit\n\n";
+
+    cin>>option;
+    if(option ==0)
+    {
+        return;
+    }
+    else if(option ==1)
+    {
+        Push();
+        Menu();
+    }
+    else if(option ==2)
+    {
+        Pop();
+        Menu();
+    }
+    else if(option ==3)
+    {
+        Display();
+        Menu();
+    }
+}
+
+void Push(){
+    int item;
+    cout<<"Enter Value: ";
+    cin>>item;
+
+    //check overflow
+    if(top>=n-1){
+        cout<<"Stack Overflow"<<endl;
+    }else{
+        top++;
+        stack[top] =item;
+    }
+}
+void Pop(){
+    if(top>=0){
+        cout<<stack[top];
+        cout<<" Pop from stack";
+        top--;
+    }else{
+        cout<<"Underflow";
+    }
+}
+
+void Display(){
+    if(top>=0){
+            cout<<" Display Item are: ";
+        for(int i =top;i>=0;i--){
+            cout<<stack[i]<<"\t";
+        }
+    }else{
+        cout<<"No Item\n";
+    }
+}
+
+int main()
+{
+    Menu();
+}
