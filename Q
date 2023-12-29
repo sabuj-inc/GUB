@@ -1,0 +1,84 @@
+//Queue
+
+#include<iostream>
+using namespace std;
+void Insert();
+void Display();
+void Delete();
+
+int queue[10],font = -1,rear =-1,n =3,option;
+void Menu()
+{
+    cout<<"\n\n=============Enter Option============\n";
+    cout<<"1. Insert\n";
+    cout<<"2. Delete\n";
+    cout<<"3. Display\n";
+    cout<<"0. Exit\n\n";
+
+    cin>>option;
+    if(option ==0)
+    {
+        return;
+    }
+    else if(option ==1)
+    {
+        Insert();
+        Menu();
+    }
+    else if(option ==2)
+    {
+        Delete();
+        Menu();
+    }
+    else if(option ==3)
+    {
+        Display();
+        Menu();
+    }
+}
+
+
+void Insert()
+{
+    int item;
+    if(rear>n-1)
+    {
+        cout<<"Queue Overflow";
+    }
+    else
+    {
+        if(font<0)
+        {
+            font =0;
+        }
+        cout<<"Enter item to add:";
+        cin>>item;
+        rear++;
+        queue[rear] = item;
+
+    }
+}
+
+void Display(){
+    if(font <0){
+        cout<<"No Record";
+    }else{
+        for(int i = font;i<=rear;i++){
+            cout<< queue[i]<<"\t";
+        }
+    }
+}
+
+void Delete(){
+    if(font<0 || font>rear){
+        cout<<"Queue Empty";
+    }else{
+        cout<< queue[font]<<" delete from queue\n";
+        font++;
+    }
+}
+
+int main()
+{
+    Menu();
+}
